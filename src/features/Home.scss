@@ -1,0 +1,30 @@
+.home-container {
+    margin: 50px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        Button {
+            width: 200px;
+            margin-top: 20px;
+            background-color: black;
+            height: 50px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 50vw;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 20px;
+
+        }
+
+
+
+    }
+
+
+}
