@@ -11,6 +11,8 @@ const Home = () => {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.pincode.loading);
   const success = useSelector((state) => state.pincode.success);
+  const results = useSelector((state) => state.pincode.results);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,14 +24,17 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const pincodeRegex = /^[0-9]{6}$/; // Regular expression to match 6 digits
-    if (!pincodeRegex.test(inputPincode)) {
+    if (inputPincode.length !== 6) {
       setError("Postal code must be 6 digits");
+      return;
+    }
+    if (!pincodeRegex.test(inputPincode)) {
+      setError("Postal code must contain only digits");
       return;
     }
     setError("");
     dispatch(fetchPincodeRequest(inputPincode));
   };
-  
 
   return (
     <div className="home-container">
@@ -49,6 +54,11 @@ const Home = () => {
         </Button>
       </form>
       {error && <div className="error">{error}</div>}
+
+      {/* Display message if no details found for pincode */}
+      {inputPincode && results.length === 0 && !loading && !error && (
+        <div>No details found for pincode</div>
+      )}
     </div>
   );
 };
